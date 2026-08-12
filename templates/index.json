@@ -4,8 +4,7 @@
     "intro": { "type": "intro", "settings": {} },
     "featured": { "type": "featured-product", "settings": {} },
     "story": { "type": "story-split", "settings": {} },
-    "future": { "type": "future-range", "settings": {} },
-    "newsletter": { "type": "newsletter", "settings": {} }
+    "future": { "type": "future-range", "settings": {} }
   },
-  "order": ["hero", "intro", "featured", "story", "future", "newsletter"]
+  "order": ["hero", "intro", "featured", "story", "future"]
 }
