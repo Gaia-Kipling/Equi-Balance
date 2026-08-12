@@ -1,0 +1,25 @@
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">Questions</p>
+      <h2>Frequently asked.</h2>
+      <div class="gold-rule"></div>
+      <p>A few answers about Equi Balance and the first product currently in development.</p>
+    </div>
+    <div class="faq-list">
+      {% for block in section.blocks %}
+        <details class="faq-item" {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }}</summary>
+          <div class="faq-answer">{{ block.settings.answer }}</div>
+        </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name":"FAQ page",
+  "blocks":[{"type":"faq","name":"Question","settings":[{"type":"text","id":"question","label":"Question","default":"What is Equi Balance?"},{"type":"richtext","id":"answer","label":"Answer","default":"<p>Equi Balance is a developing equestrian product brand focused on thoughtful, purposeful products for horses and riders.</p>"}]}],
+  "presets":[{"name":"FAQ page","blocks":[{"type":"faq","settings":{"question":"What is Equi Balance?","answer":"<p>Equi Balance is a developing equestrian product brand focused on thoughtful products for horses and riders.</p>"}},{"type":"faq","settings":{"question":"When will the Balance Pad be available?","answer":"<p>The Balance Pad is currently a prototype. It will be offered once materials, construction and durability have been properly tested.</p>"}},{"type":"faq","settings":{"question":"What is the first product?","answer":"<p>The first product is an equine balance/proprioception pad, intended initially as a pair of two pads.</p>"}},{"type":"faq","settings":{"question":"Will Equi Balance make other products?","answer":"<p>Yes. The long-term brand direction includes additional equestrian products such as saddle pads, half pads, training and conditioning products.</p>"}},{"type":"faq","settings":{"question":"Are the product specifications final?","answer":"<p>No. Prototype dimensions and material concepts are working decisions. Final density, hardness, load guidance, weight, manufacturing process and pricing will be confirmed after testing.</p>"}}]}]
+}
+{% endschema %}
