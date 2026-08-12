@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('[data-menu-toggle]');
   const nav = document.querySelector('[data-mobile-nav]');
   const header = document.querySelector('[data-site-header]');
-  const main = document.getElementById('MainContent');
 
   if (toggle && nav) {
     const closeMenu = () => {
@@ -23,20 +22,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (header && main) {
+  // Mobile header: keep it in the normal sticky flow and reveal it smoothly
+  // when the visitor scrolls back up. This avoids the jump caused by
+  // switching between sticky and fixed positioning.
+  if (header) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
     const updateHeader = () => {
-      const shouldFix = window.scrollY > header.offsetTop + header.offsetHeight;
-      header.classList.toggle('is-scrolling', shouldFix);
-      if (shouldFix) {
-        document.documentElement.style.setProperty('--eb-sticky-header-height', `${header.offsetHeight}px`);
-        main.classList.add('has-sticky-header');
-      } else {
-        main.classList.remove('has-sticky-header');
+      const currentScrollY = window.scrollY;
+      const isMobile = window.matchMedia('(max-width: 980px)').matches;
+
+      if (!isMobile || currentScrollY <= 8) {
+        header.classList.remove('is-hidden');
+      } else if (currentScrollY > lastScrollY + 2) {
+        header.classList.add('is-hidden');
+        if (nav) nav.classList.remove('is-open');
+        if (toggle) {
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open menu');
+        }
+      } else if (currentScrollY < lastScrollY - 2) {
+        header.classList.remove('is-hidden');
       }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
     };
 
-    updateHeader();
-    window.addEventListener('scroll', updateHeader, { passive: true });
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    }, { passive: true });
+
     window.addEventListener('resize', updateHeader);
+    updateHeader();
   }
 });
