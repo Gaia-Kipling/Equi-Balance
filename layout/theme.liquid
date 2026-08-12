@@ -3,37 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="canonical" href="{{ canonical_url }}">
-
-    <title>
-      {% if page_title %}
-        {{ page_title }}
-        {% if current_tags %} &mdash; {{ current_tags | join: ', ' }}{% endif %}
-        {% if current_page != 1 %} &mdash; Page {{ current_page }}{% endif %}
-        {% unless page_title contains shop.name %} &mdash; {{ shop.name }}{% endunless %}
-      {% else %}
-        {{ shop.name }}
-      {% endif %}
-    </title>
-
+    <title>{% if page_title %}{{ page_title }}{% if current_tags %} &mdash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &mdash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &mdash; {{ shop.name }}{% endunless %}{% else %}{{ shop.name }}{% endif %}</title>
     <meta name="description" content="{{ page_description | escape }}">
     <meta property="og:site_name" content="{{ shop.name }}">
     <meta property="og:url" content="{{ canonical_url }}">
     <meta property="og:title" content="{{ page_title | escape }}">
     <meta property="og:type" content="website">
-    {% if page_image %}
-      <meta property="og:image" content="{{ page_image | image_url: width: 1200 }}">
-      <meta property="og:image:width" content="1200">
-    {% endif %}
+    {% if page_image %}<meta property="og:image" content="{{ page_image | image_url: width: 1200 }}"><meta property="og:image:width" content="1200">{% endif %}
     <meta name="twitter:card" content="summary_large_image">
-
+    <style>
+      :root {
+        --eb-green: {{ settings.color_green | default: '#18352F' }};
+        --eb-gold: {{ settings.color_gold | default: '#B7A477' }};
+        --eb-cream: {{ settings.color_cream | default: '#F5F0E6' }};
+      }
+    </style>
     {{ content_for_header }}
     {{ 'equi-balance.css' | asset_url | stylesheet_tag }}
     {{ 'equi-balance-responsive.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'equi-balance.js' | asset_url }}" defer></script>
   </head>
-
   <body class="template-{{ template.name | handle }}">
     <a class="skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
     {% sections 'header-group' %}
