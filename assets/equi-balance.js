@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('[data-menu-toggle]');
   const nav = document.querySelector('[data-mobile-nav]');
   const header = document.querySelector('[data-site-header]');
-  const main = document.getElementById('MainContent');
 
   if (toggle && nav) {
     const closeMenu = () => {
@@ -23,56 +22,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile header: fixed in its own layer so it can smoothly slide out while
-  // scrolling down and smoothly slide back down when scrolling up. The main
-  // content receives an equal top offset so changing the transform never
-  // causes the page itself to jump.
+  // Mobile header behaviour:
+  // - stays naturally at the top of the page
+  // - hides smoothly while scrolling down
+  // - slides smoothly down into view as soon as the visitor scrolls back up
+  // - never switches between sticky/fixed positioning, preventing page jumps
   if (header) {
     let lastScrollY = window.scrollY;
     let ticking = false;
 
-    const syncHeaderHeight = () => {
-      if (window.matchMedia('(max-width: 980px)').matches) {
-        document.documentElement.style.setProperty('--eb-mobile-header-height', `${header.offsetHeight}px`);
-        if (main) main.classList.add('mobile-header-offset');
-      } else if (main) {
-        main.classList.remove('mobile-header-offset');
-      }
-    };
-
     const updateHeader = () => {
       const currentScrollY = window.scrollY;
       const isMobile = window.matchMedia('(max-width: 980px)').matches;
+      const scrollingDown = currentScrollY > lastScrollY;
+      const scrollingUp = currentScrollY < lastScrollY;
 
-      if (!isMobile) {
+      if (!isMobile || currentScrollY <= 8) {
         header.classList.remove('is-hidden');
-        if (main) main.classList.remove('mobile-header-offset');
-        lastScrollY = currentScrollY;
-        ticking = false;
-        return;
-      }
-
-      syncHeaderHeight();
-
-      if (currentScrollY <= 10) {
-        header.classList.remove('is-hidden');
-      } else if (currentScrollY > lastScrollY + 3) {
+      } else if (scrollingDown && currentScrollY > 40) {
         header.classList.add('is-hidden');
         if (nav) nav.classList.remove('is-open');
         if (toggle) {
           toggle.setAttribute('aria-expanded', 'false');
           toggle.setAttribute('aria-label', 'Open menu');
         }
-      } else if (currentScrollY < lastScrollY - 3) {
+      } else if (scrollingUp) {
         header.classList.remove('is-hidden');
       }
 
       lastScrollY = currentScrollY;
       ticking = false;
     };
-
-    syncHeaderHeight();
-    updateHeader();
 
     window.addEventListener('scroll', () => {
       if (!ticking) {
@@ -82,9 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
     window.addEventListener('resize', () => {
-      syncHeaderHeight();
       lastScrollY = window.scrollY;
       updateHeader();
     });
+
+    updateHeader();
   }
 });
