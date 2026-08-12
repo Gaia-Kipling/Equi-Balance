@@ -22,9 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile header: keep it in the normal sticky flow and reveal it smoothly
-  // when the visitor scrolls back up. This avoids the jump caused by
-  // switching between sticky and fixed positioning.
+  // Mobile header behaviour:
+  // - stays naturally at the top of the page
+  // - hides smoothly while scrolling down
+  // - slides smoothly down into view as soon as the visitor scrolls back up
+  // - never switches between sticky/fixed positioning, preventing page jumps
   if (header) {
     let lastScrollY = window.scrollY;
     let ticking = false;
@@ -32,17 +34,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateHeader = () => {
       const currentScrollY = window.scrollY;
       const isMobile = window.matchMedia('(max-width: 980px)').matches;
+      const scrollingDown = currentScrollY > lastScrollY;
+      const scrollingUp = currentScrollY < lastScrollY;
 
       if (!isMobile || currentScrollY <= 8) {
         header.classList.remove('is-hidden');
-      } else if (currentScrollY > lastScrollY + 2) {
+      } else if (scrollingDown && currentScrollY > 40) {
         header.classList.add('is-hidden');
         if (nav) nav.classList.remove('is-open');
         if (toggle) {
           toggle.setAttribute('aria-expanded', 'false');
           toggle.setAttribute('aria-label', 'Open menu');
         }
-      } else if (currentScrollY < lastScrollY - 2) {
+      } else if (scrollingUp) {
         header.classList.remove('is-hidden');
       }
 
@@ -57,7 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: true });
 
-    window.addEventListener('resize', updateHeader);
+    window.addEventListener('resize', () => {
+      lastScrollY = window.scrollY;
+      updateHeader();
+    });
+
     updateHeader();
   }
 });
