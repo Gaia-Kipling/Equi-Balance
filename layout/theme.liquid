@@ -22,6 +22,7 @@
     {{ content_for_header }}
     {{ 'equi-balance.css' | asset_url | stylesheet_tag }}
     {{ 'equi-balance-responsive.css' | asset_url | stylesheet_tag }}
+    {{ 'equi-balance-mobile.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'equi-balance.js' | asset_url }}" defer></script>
   </head>
   <body class="template-{{ template.name | handle }}">
