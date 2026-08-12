@@ -1,0 +1,52 @@
+{% assign product = all_products[section.settings.product] %}
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">The first Equi Balance product</p>
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="gold-rule"></div>
+      <p>{{ section.settings.text }}</p>
+    </div>
+
+    {% if product != blank %}
+      <div class="product-layout">
+        <a class="product-media" href="{{ product.url }}">
+          {% if product.featured_image %}
+            {{ product.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: product.title }}
+          {% else %}
+            <div class="placeholder-product"></div>
+          {% endif %}
+        </a>
+        <div class="product-detail">
+          <p class="eyebrow">Prototype / Launch product</p>
+          <h1>{{ product.title }}</h1>
+          <div class="product-price">{{ product.price | money }}</div>
+          <div class="product-description">{{ product.description | strip_html | truncatewords: 55 }}</div>
+          <a class="button button--dark" href="{{ product.url }}">View product</a>
+        </div>
+      </div>
+    {% else %}
+      <div class="product-grid">
+        <article class="product-card">
+          <div class="product-card__image"><div class="placeholder-product"></div></div>
+          <div class="product-card__info">
+            <span class="product-card__badge">Coming soon</span>
+            <h3 class="product-card__title">Equi Balance Pad Pair</h3>
+            <div class="product-card__price">Product details coming soon</div>
+          </div>
+        </article>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Featured product",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Equi Balance Pad" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Our first product is being developed as a prototype before commercial specifications are locked." }
+  ],
+  "presets": [{ "name": "Featured product" }]
+}
+{% endschema %}

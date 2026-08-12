@@ -1,0 +1,38 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="{{ 'equi-balance-logo.png' | asset_url }}" alt="Equi Balance">
+        <p>Supporting better movement.</p>
+        <p>Thoughtful products for horses, riders and the wider equestrian community.</p>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <a href="{{ routes.all_products_collection_url }}">All products</a>
+        <a href="/pages/coming-soon">Coming soon</a>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <a href="/pages/our-story">Our Story</a>
+        <a href="/pages/why-equi-balance">Why Equi Balance</a>
+        <a href="/pages/contact">Contact</a>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <a href="/policies/shipping-policy">Shipping</a>
+        <a href="/policies/refund-policy">Returns</a>
+        <a href="/policies/privacy-policy">Privacy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+      <span>Designed with purpose. Made for horses.</span>
+    </div>
+  </div>
+</footer>
+{% schema %}
+{
+  "name": "Footer",
+  "settings": []
+}
+{% endschema %}

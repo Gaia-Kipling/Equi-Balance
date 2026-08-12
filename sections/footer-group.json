@@ -1,0 +1,18 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Stay connected",
+        "text": "Be the first to hear about Equi Balance products, launches and updates."
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": ["newsletter", "footer"]
+}

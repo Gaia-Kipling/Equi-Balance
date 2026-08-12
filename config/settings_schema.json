@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Store logo" },
+      { "type": "text", "id": "tagline", "label": "Tagline", "default": "Supporting Better Movement" }
+    ]
+  },
+  {
+    "name": "Colours",
+    "settings": [
+      { "type": "color", "id": "color_green", "label": "Forest green", "default": "#18352F" },
+      { "type": "color", "id": "color_gold", "label": "Champagne gold", "default": "#B7A477" },
+      { "type": "color", "id": "color_cream", "label": "Warm ivory", "default": "#F5F0E6" }
+    ]
+  }
+]

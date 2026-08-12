@@ -1,0 +1,42 @@
+<section class="product-page">
+  <div class="container product-layout">
+    <div class="product-media">
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 1400 | image_tag: loading: 'eager', alt: product.title }}
+      {% else %}
+        <div class="placeholder-product"></div>
+      {% endif %}
+    </div>
+    <div class="product-detail">
+      <p class="eyebrow">Equi Balance</p>
+      <h1>{{ product.title }}</h1>
+      <div class="product-price">{{ product.selected_or_first_available_variant.price | money }}</div>
+      <div class="product-description">{{ product.description }}</div>
+
+      {% form 'product', product %}
+        {% unless product.has_only_default_variant %}
+          <label for="VariantSelect">Choose an option</label>
+          <select id="VariantSelect" name="id">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                {{ variant.title }} — {{ variant.price | money }}
+              </option>
+            {% endfor %}
+          </select>
+        {% else %}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {% endunless %}
+        <div class="quantity-row">
+          <input type="number" name="quantity" value="1" min="1" aria-label="Quantity">
+          <button class="button button--dark add-button" type="submit" {% unless product.available %}disabled{% endunless %}>
+            {% if product.available %}Add to bag{% else %}Sold out{% endif %}
+          </button>
+        </div>
+      {% endform %}
+      <p class="form-note">Product specifications shown here should be replaced with validated commercial information before launch.</p>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Main product", "settings": [] }
+{% endschema %}

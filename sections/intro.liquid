@@ -1,0 +1,43 @@
+<section class="section section--cream">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="gold-rule"></div>
+      <p>{{ section.settings.text }}</p>
+    </div>
+    <div class="features">
+      {% for block in section.blocks %}
+        <article class="feature" {{ block.shopify_attributes }}>
+          <div class="feature__number">{{ forloop.index | prepend: '0' }}</div>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Brand introduction",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Equi Balance approach" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Designed with purpose. Made for horses." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Equi Balance is being developed as a broader equestrian brand, beginning with thoughtful products that support equine movement, stability and performance." }
+  ],
+  "blocks": [
+    { "type": "feature", "name": "Feature", "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "Movement" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Products developed around purposeful equine movement." }
+    ] }
+  ],
+  "presets": [
+    { "name": "Brand introduction", "blocks": [
+      { "type": "feature", "settings": { "title": "Movement", "text": "Products developed around purposeful equine movement." } },
+      { "type": "feature", "settings": { "title": "Stability", "text": "Thoughtful design with stability and balance in mind." } },
+      { "type": "feature", "settings": { "title": "Practicality", "text": "Designed to be useful, durable and easy to live with." } },
+      { "type": "feature", "settings": { "title": "Progress", "text": "A growing range for horses, riders and equestrian professionals." } }
+    ] }
+  ]
+}
+{% endschema %}

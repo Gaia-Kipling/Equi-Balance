@@ -1,0 +1,31 @@
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">Equi Balance</p>
+      <h1 class="display">{{ collection.title }}</h1>
+      {% if collection.description != blank %}<div>{{ collection.description }}</div>{% endif %}
+    </div>
+    <div class="product-grid">
+      {% for product in collection.products %}
+        <a class="product-card" href="{{ product.url }}">
+          <div class="product-card__image">
+            {% if product.featured_image %}
+              {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: product.title }}
+            {% else %}
+              <div class="placeholder-product"></div>
+            {% endif %}
+          </div>
+          <div class="product-card__info">
+            <h2 class="product-card__title">{{ product.title }}</h2>
+            <div class="product-card__price">{{ product.price | money }}</div>
+          </div>
+        </a>
+      {% else %}
+        <div class="rte"><p>No products are available yet. This is a practice store while the first Equi Balance products are being developed.</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Main collection", "settings": [] }
+{% endschema %}

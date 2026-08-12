@@ -1,0 +1,44 @@
+<section class="cart-page">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">Equi Balance</p>
+      <h1 class="display">Your bag</h1>
+    </div>
+    {% if cart.item_count > 0 %}
+      <form action="{{ routes.cart_url }}" method="post">
+        <table class="cart-table">
+          <thead><tr><th>Product</th><th>Quantity</th><th>Price</th></tr></thead>
+          <tbody>
+            {% for item in cart.items %}
+              <tr>
+                <td>
+                  <div class="cart-item">
+                    {% if item.image %}{{ item.image | image_url: width: 180 | image_tag: loading: 'lazy', alt: item.product.title }}{% endif %}
+                    <a href="{{ item.url }}">{{ item.product.title }}</a>
+                  </div>
+                </td>
+                <td><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity for {{ item.product.title }}"></td>
+                <td>{{ item.final_line_price | money }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="cart-summary">
+          <div class="cart-total"><span>Total</span><span>{{ cart.total_price | money }}</span></div>
+          <div class="buttons">
+            <button class="button button--outline" type="submit" name="update">Update bag</button>
+            <button class="button button--dark" type="submit" name="checkout">Checkout</button>
+          </div>
+        </div>
+      </form>
+    {% else %}
+      <div class="rte">
+        <p>Your bag is currently empty.</p>
+        <a class="button button--dark" href="{{ routes.all_products_collection_url }}">Explore the collection</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% schema %}
+{ "name": "Main cart", "settings": [] }
+{% endschema %}

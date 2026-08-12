@@ -1,0 +1,36 @@
+<section class="search-page">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">Equi Balance</p>
+      <h1 class="display">Search</h1>
+    </div>
+    <form class="search-form" action="{{ routes.search_url }}" method="get" role="search">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products and pages" aria-label="Search">
+      <button class="button button--dark" type="submit">Search</button>
+    </form>
+
+    {% if search.performed %}
+      <div class="section-heading">
+        <h2>{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %}</h2>
+      </div>
+      <div class="product-grid">
+        {% for result in search.results %}
+          <a class="product-card" href="{{ result.url }}">
+            <div class="product-card__image">
+              {% if result.featured_image %}
+                {{ result.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: result.title }}
+              {% else %}<div class="placeholder-product"></div>{% endif %}
+            </div>
+            <div class="product-card__info">
+              <h2 class="product-card__title">{{ result.title }}</h2>
+              <div class="product-card__price">{% if result.price %}{{ result.price | money }}{% endif %}</div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% schema %}
+{ "name": "Main search", "settings": [] }
+{% endschema %}

@@ -1,0 +1,19 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Thoughtful products for equine movement, stability & performance"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_width": 180
+      }
+    }
+  },
+  "order": ["announcement", "header"]
+}
