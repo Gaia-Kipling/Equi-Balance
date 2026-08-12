@@ -1,6 +1,8 @@
-<header class="site-header">
+<header class="site-header" data-site-header>
   <div class="container header-inner" style="--eb-logo-width: {{ section.settings.logo_width }}px;">
-    <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="SiteNav">Menu</button>
+    <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="SiteNav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
     <nav class="header-nav" id="SiteNav" data-mobile-nav>
       <a href="{{ routes.root_url }}">Home</a>
       <a href="{{ routes.all_products_collection_url }}">Shop</a>
