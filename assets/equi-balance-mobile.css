@@ -6,16 +6,21 @@
   .announcement{font-size:8px;line-height:1.45;letter-spacing:.14em;padding:8px 12px}
   .site-header{top:0;z-index:1000}
   .header-inner{min-height:72px;grid-template-columns:46px 1fr 62px;gap:4px;padding:0}
-  .menu-toggle{width:42px;height:42px;padding:7px;display:flex;align-items:center;justify-content:center}
-  .menu-toggle span{width:21px;height:1.5px}
+
+  /* Mobile menu: hamburger always visible; navigation hidden until opened. */
+  .menu-toggle{display:flex!important;width:42px;height:42px;padding:7px;align-items:center;justify-content:center;background:none;border:0;color:var(--eb-green);position:relative;z-index:1002}
+  .menu-toggle span{display:block;width:21px;height:1.5px;background:currentColor;margin:3px 0}
+  .header-nav{display:none!important}
+  .header-nav.is-open{display:flex!important;position:absolute;top:100%;left:0;right:0;width:100%;max-height:calc(100vh - 72px);overflow-y:auto;flex-direction:column;align-items:stretch;gap:0;padding:10px 20px 18px;background:rgba(255,253,249,.98);border-bottom:1px solid var(--eb-border);box-shadow:0 18px 35px rgba(15,41,35,.10);z-index:1001}
+  .header-nav.is-open a{display:block;padding:15px 4px;font-size:10px;line-height:1.4;border-bottom:1px solid var(--eb-border);letter-spacing:.16em}
+  .header-nav.is-open a:last-child{border-bottom:0}
+
   .header-logo{min-width:0;justify-self:center}
-  .header-logo img{width:min(var(--eb-logo-width),150px);max-width:100%;max-height:52px;object-fit:contain}
+  .header-logo img,.header-logo__image{width:min(var(--eb-logo-width),150px);max-width:100%;max-height:52px;object-fit:contain}
   .header-actions{gap:8px;justify-self:end;min-width:0}
   .header-actions .search-link{display:none}
   .icon-link{font-size:9px;letter-spacing:.12em;white-space:nowrap}
   .cart-count{min-width:17px;height:17px;font-size:8px}
-  .header-nav.is-open{position:absolute;top:100%;left:0;right:0;width:100%;max-height:calc(100vh - 72px);overflow-y:auto;padding:10px 20px 18px}
-  .header-nav.is-open a{padding:15px 4px;font-size:10px}
 
   .hero-inner{display:flex;flex-direction:column;gap:0;min-height:0}
   .hero-content{padding:48px 0 12px}
@@ -109,7 +114,8 @@
 }
 @media (max-width:380px){
   .header-inner{grid-template-columns:42px 1fr 56px}
-  .header-logo img{width:min(var(--eb-logo-width),130px)}
+  .header-logo img,.header-logo__image{width:min(var(--eb-logo-width),130px)}
+  .menu-toggle{width:40px;height:40px}
   .hero-content{padding-top:42px}
   .hero h1,.display{font-size:38px}
   .hero__visual{min-height:180px}
