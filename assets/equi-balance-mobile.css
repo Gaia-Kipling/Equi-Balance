@@ -17,16 +17,17 @@
   .header-nav.is-open{position:absolute;top:100%;left:0;right:0;width:100%;max-height:calc(100vh - 72px);overflow-y:auto;padding:10px 20px 18px}
   .header-nav.is-open a{padding:15px 4px;font-size:10px}
 
-  .hero-inner{display:flex;flex-direction:column;gap:4px;min-height:0}
-  .hero-content{padding:52px 0 18px}
+  .hero-inner{display:flex;flex-direction:column;gap:0;min-height:0}
+  .hero-content{padding:48px 0 12px}
   .hero h1,.display{font-size:clamp(40px,11vw,58px);line-height:1.02;margin-bottom:18px}
   .hero p{font-size:14px;line-height:1.75}
   .buttons{gap:10px;margin-top:22px}
   .button{width:100%;min-height:48px;padding:0 18px}
-  .hero__visual{min-height:270px;margin-top:4px}
-  .hero__image{width:min(88%,380px);height:auto;object-fit:contain}
-  .hero-mark{position:relative;z-index:2;width:min(78%,290px);aspect-ratio:1/1;display:grid;place-items:center;text-align:center;border:1px solid rgba(183,164,119,.55);border-radius:50%;font-family:'Cinzel',Georgia,serif;font-size:34px;line-height:1.05;letter-spacing:.03em;color:var(--eb-green)}
-  .hero__stamp{width:82px;height:82px;right:0;bottom:5%;padding:12px;font-size:7px}
+  .hero__visual{min-height:205px;margin-top:2px;display:grid;place-items:center}
+  .hero__visual:before,.hero__visual:after{display:none}
+  .hero__image{width:min(62%,250px);height:auto;object-fit:contain;mix-blend-mode:multiply}
+  .hero__image--fallback{width:min(58%,220px)}
+  .hero__stamp{display:none}
 
   .section{padding:64px 0}
   .section-heading{margin-bottom:38px}
@@ -69,7 +70,7 @@
   .site-footer{padding:55px 0 22px}
   .footer-grid{grid-template-columns:1fr 1fr;gap:34px 22px}
   .footer-grid>div:first-child{grid-column:1/-1}
-  .footer-logo{width:145px;margin-bottom:14px}
+  .footer-logo{width:145px;margin:0 0 14px;background:var(--eb-cream);padding:10px;border-radius:2px}
   .site-footer p{font-size:12px;line-height:1.65}
   .site-footer h3{font-size:9px}
   .site-footer a{font-size:11px;margin:8px 0;line-height:1.45}
@@ -109,8 +110,10 @@
 @media (max-width:380px){
   .header-inner{grid-template-columns:42px 1fr 56px}
   .header-logo img{width:min(var(--eb-logo-width),130px)}
-  .hero-content{padding-top:45px}
+  .hero-content{padding-top:42px}
   .hero h1,.display{font-size:38px}
+  .hero__visual{min-height:180px}
+  .hero__image--fallback{width:185px}
   .section{padding:55px 0}
   .product-art{min-height:285px}
   .footer-grid{grid-template-columns:1fr}
