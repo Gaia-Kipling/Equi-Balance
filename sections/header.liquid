@@ -1,5 +1,5 @@
 <header class="site-header">
-  <div class="container header-inner">
+  <div class="container header-inner" style="--eb-logo-width: {{ section.settings.logo_width }}px;">
     <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="SiteNav">Menu</button>
     <nav class="header-nav" id="SiteNav" data-mobile-nav>
       <a href="{{ routes.root_url }}">Home</a>
@@ -11,9 +11,9 @@
     </nav>
     <a class="header-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
       {% if section.settings.logo != blank %}
-        <img src="{{ section.settings.logo | image_url: width: 600 }}" alt="{{ shop.name | escape }}" width="600" height="600" loading="eager" style="width:{{ section.settings.logo_width }}px;">
+        {{ section.settings.logo | image_url: width: 600 | image_tag: widths: '180,300,450,600', loading: 'eager', alt: shop.name }}
       {% else %}
-        <img src="{{ 'equi-balance-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="600" height="600" loading="eager" style="width:{{ section.settings.logo_width }}px;">
+        <img src="{{ 'equi-balance-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="600" height="600" loading="eager">
       {% endif %}
     </a>
     <div class="header-actions">
