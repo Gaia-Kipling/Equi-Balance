@@ -1,0 +1,26 @@
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">A growing equestrian brand</p>
+      <h2>More than one product.</h2>
+      <div class="gold-rule"></div>
+      <p>Balance is where Equi Balance begins. The wider vision is a considered range of equestrian products, developed one useful idea at a time.</p>
+    </div>
+    <div class="future-range">
+      {% for block in section.blocks %}
+        <article class="future-card" {{ block.shopify_attributes }}>
+          <div class="future-card__number">0{{ forloop.index }}</div>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name":"Future range",
+  "blocks":[{"type":"item","name":"Future product","settings":[{"type":"text","id":"title","label":"Title","default":"Saddle pads"},{"type":"textarea","id":"text","label":"Text","default":"Thoughtfully developed equestrian essentials for the future of the range."}]}],
+  "presets":[{"name":"Future range","blocks":[{"type":"item","settings":{"title":"Saddle pads","text":"Thoughtfully developed saddle pads for the future range."}},{"type":"item","settings":{"title":"Half pads","text":"Further products designed around fit, feel and practical use."}},{"type":"item","settings":{"title":"Training & rehab","text":"Future balance, conditioning and training products as development allows."}}] }]
+}
+{% endschema %}
