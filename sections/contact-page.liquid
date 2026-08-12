@@ -1,0 +1,22 @@
+<section class="section">
+  <div class="container contact-grid">
+    <div class="contact-copy">
+      <p class="eyebrow">Get in touch</p>
+      <h2>We'd love to hear from you.</h2>
+      <div class="gold-rule" style="margin-left:0"></div>
+      <p>Questions about Equi Balance, the developing Balance Pad or the future of the brand? Send us a message and we'll get back to you.</p>
+    </div>
+    <div>
+      {% form 'contact', class: 'contact-form' %}
+        {% if form.posted_successfully? %}<p class="coming-badge">Message received</p>{% endif %}
+        {{ form.errors | default_errors }}
+        <label for="ContactName">Name<input id="ContactName" type="text" name="contact[name]" autocomplete="name" required></label>
+        <label for="ContactEmail">Email<input id="ContactEmail" type="email" name="contact[email]" autocomplete="email" required></label>
+        <label for="ContactSubject">Subject<input id="ContactSubject" type="text" name="contact[subject]" required></label>
+        <label for="ContactMessage">Message<textarea id="ContactMessage" name="contact[body]" required></textarea></label>
+        <button class="button button--dark" type="submit">Send message</button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+{% schema %}{"name":"Contact page","settings":[]}{% endschema %}
