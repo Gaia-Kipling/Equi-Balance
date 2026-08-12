@@ -13,9 +13,9 @@
     </nav>
     <a class="header-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
       {% if section.settings.logo != blank %}
-        {{ section.settings.logo | image_url: width: 600 | image_tag: widths: '180,300,450,600', loading: 'eager', alt: shop.name, style: 'width: var(--eb-logo-width, 190px);' }}
+        {{ section.settings.logo | image_url: width: 800 | image_tag: widths: '220,320,480,640,800', loading: 'eager', alt: shop.name, class: 'header-logo__image' }}
       {% else %}
-        <img src="{{ 'equi-balance-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="600" height="600" loading="eager" style="width: var(--eb-logo-width, 190px);">
+        <img class="header-logo__image" src="{{ 'equi-balance-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="600" height="600" loading="eager">
       {% endif %}
     </a>
     <div class="header-actions">
@@ -28,8 +28,8 @@
 {
   "name":"Header",
   "settings":[
-    {"type":"image_picker","id":"logo","label":"Logo","info":"Leave blank to use the Equi Balance logo supplied with the theme."},
-    {"type":"range","id":"logo_width","label":"Logo width","min":100,"max":280,"step":10,"unit":"px","default":190}
+    {"type":"image_picker","id":"logo","label":"Horizontal header logo","info":"Use the Equi Balance horizontal logo for the storefront header."},
+    {"type":"range","id":"logo_width","label":"Logo width","min":140,"max":360,"step":10,"unit":"px","default":240}
   ]
 }
 {% endschema %}
