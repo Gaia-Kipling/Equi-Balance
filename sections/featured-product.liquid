@@ -19,7 +19,7 @@
         </a>
         <div class="product-detail">
           <p class="eyebrow">Prototype / Launch product</p>
-          <h1>{{ product.title }}</h1>
+          <h2>{{ product.title }}</h2>
           <div class="product-price">{{ product.price | money }}</div>
           <div class="product-description">{{ product.description | strip_html | truncatewords: 55 }}</div>
           <a class="button button--dark" href="{{ product.url }}">View product</a>
