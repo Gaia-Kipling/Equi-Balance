@@ -1,44 +1,108 @@
 <section class="cart-page">
   <div class="container">
-    <div class="section-heading">
+    <div class="section-heading cart-heading">
       <p class="eyebrow">Equi Balance</p>
       <h1 class="display">Your bag</h1>
+      {% if cart.item_count > 0 %}<p class="cart-count-label">{{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %}</p>{% endif %}
     </div>
+
     {% if cart.item_count > 0 %}
-      <form action="{{ routes.cart_url }}" method="post">
-        <table class="cart-table">
-          <thead><tr><th>Product</th><th>Quantity</th><th>Price</th></tr></thead>
-          <tbody>
-            {% for item in cart.items %}
-              <tr>
-                <td>
-                  <div class="cart-item">
-                    {% if item.image %}{{ item.image | image_url: width: 180 | image_tag: loading: 'lazy', alt: item.product.title }}{% endif %}
-                    <a href="{{ item.url }}">{{ item.product.title }}</a>
-                  </div>
-                </td>
-                <td><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity for {{ item.product.title }}"></td>
-                <td>{{ item.final_line_price | money }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        <div class="cart-summary">
-          <div class="cart-total"><span>Total</span><span>{{ cart.total_price | money }}</span></div>
-          <div class="buttons">
-            <button class="button button--outline" type="submit" name="update">Update bag</button>
-            <button class="button button--dark" type="submit" name="checkout">Checkout</button>
+      <form action="{{ routes.cart_url }}" method="post" class="cart-form" id="cart-form">
+        <div class="cart-items" role="table" aria-label="Items in your bag">
+          <div class="cart-table-head" role="row">
+            <span role="columnheader">Product</span>
+            <span role="columnheader">Quantity</span>
+            <span role="columnheader">Total</span>
           </div>
+
+          {% for item in cart.items %}
+            <article class="cart-item-row" role="row">
+              <div class="cart-product" role="cell">
+                <a class="cart-product-image" href="{{ item.url }}" aria-label="View {{ item.product.title }}">
+                  {% if item.image %}
+                    {{ item.image | image_url: width: 360 | image_tag: loading: 'lazy', alt: item.product.title, widths: '120,180,240,360' }}
+                  {% else %}
+                    <span class="cart-image-placeholder" aria-hidden="true"></span>
+                  {% endif %}
+                </a>
+                <div class="cart-product-details">
+                  <a class="cart-product-title" href="{{ item.url }}">{{ item.product.title }}</a>
+                  {% unless item.product.has_only_default_variant %}
+                    <p class="cart-product-variant">{{ item.variant.title }}</p>
+                  {% endunless %}
+                  {% if item.selling_plan_allocation %}
+                    <p class="cart-product-variant">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                  {% endif %}
+                  <p class="cart-product-unit-price">{{ item.final_price | money }} each</p>
+                  <a class="cart-remove" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" aria-label="Remove {{ item.product.title }} from bag">Remove</a>
+                </div>
+              </div>
+
+              <div class="cart-quantity" role="cell">
+                <label for="Quantity-{{ forloop.index }}">Quantity</label>
+                <div class="quantity-control">
+                  <button type="button" class="quantity-button" data-quantity-decrease aria-label="Decrease quantity">−</button>
+                  <input id="Quantity-{{ forloop.index }}" class="quantity-input" type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" aria-label="Quantity for {{ item.product.title }}">
+                  <button type="button" class="quantity-button" data-quantity-increase aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+
+              <div class="cart-line-total" role="cell">
+                <span class="cart-line-total-label">Total</span>
+                <strong>{{ item.final_line_price | money }}</strong>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+
+        <div class="cart-bottom">
+          <div class="cart-note-wrap">
+            <label for="CartNote">Order note <span>(optional)</span></label>
+            <textarea id="CartNote" name="note" rows="4" placeholder="Add a note about your order">{{ cart.note }}</textarea>
+          </div>
+
+          <aside class="cart-summary" aria-label="Order summary">
+            <div class="cart-total"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
+            <p class="cart-summary-note">Shipping and taxes are calculated at checkout.</p>
+            <button class="button button--dark cart-checkout" type="submit" name="checkout">Checkout</button>
+            <button class="button button--outline cart-update" type="submit" name="update">Update bag</button>
+            <a class="cart-continue" href="{{ routes.all_products_collection_url }}">Continue shopping</a>
+          </aside>
         </div>
       </form>
     {% else %}
-      <div class="rte">
-        <p>Your bag is currently empty.</p>
+      <div class="cart-empty">
+        <div class="cart-empty-mark" aria-hidden="true">EB</div>
+        <p class="eyebrow">Nothing here yet</p>
+        <h2>Your bag is empty</h2>
+        <p>Explore the Equi Balance collection and discover thoughtful products designed with movement in mind.</p>
         <a class="button button--dark" href="{{ routes.all_products_collection_url }}">Explore the collection</a>
       </div>
     {% endif %}
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var cartForm = document.getElementById('cart-form');
+    if (!cartForm) return;
+    cartForm.querySelectorAll('.quantity-control').forEach(function (control) {
+      var input = control.querySelector('.quantity-input');
+      var decrease = control.querySelector('[data-quantity-decrease]');
+      var increase = control.querySelector('[data-quantity-increase]');
+      if (!input) return;
+      decrease && decrease.addEventListener('click', function () {
+        input.value = Math.max(0, parseInt(input.value || '0', 10) - 1);
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      increase && increase.addEventListener('click', function () {
+        input.value = Math.max(0, parseInt(input.value || '0', 10) + 1);
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    });
+  });
+</script>
+
 {% schema %}
 { "name": "Main cart", "settings": [] }
 {% endschema %}
