@@ -2,11 +2,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        {% if section.settings.logo != blank %}
-          {{ section.settings.logo | image_url: width: 600 | image_tag: widths: '180,300,450,600', loading: 'lazy', alt: shop.name, class: 'footer-logo' }}
-        {% else %}
-          <img class="footer-logo" src="{{ 'equi-balance-logo.png' | asset_url }}" alt="{{ shop.name }}">
-        {% endif %}
+        <img class="footer-logo" src="{{ 'equi-balance-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" loading="lazy" width="600" height="600">
         <p>Supporting better movement.</p>
         <p>Thoughtful products for horses, riders and the wider equestrian community.</p>
       </div>
@@ -39,8 +35,6 @@
 {% schema %}
 {
   "name":"Footer",
-  "settings":[
-    {"type":"image_picker","id":"logo","label":"Footer logo","info":"Use the stacked Equi Balance logo here for the footer."}
-  ]
+  "settings":[]
 }
 {% endschema %}
