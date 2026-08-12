@@ -1,3 +1,4 @@
+{% assign featured = section.settings.product %}
 <section class="section">
   <div class="container">
     <div class="section-heading">
@@ -8,10 +9,10 @@
     </div>
     <div class="product-feature">
       <div class="product-art">
-        {% if product != blank and product.featured_image %}
-          {{ product.featured_image | image_url: width: 1400 | image_tag: loading: 'lazy', alt: product.title }}
+        {% if featured != blank and featured.featured_image %}
+          {{ featured.featured_image | image_url: width: 1400 | image_tag: loading: 'lazy', alt: featured.title }}
         {% else %}
-          <div class="pad-visual" aria-label="Equi Balance balance pad concept"></div>
+          <div class="pad-visual" role="img" aria-label="Equi Balance Balance Pad concept"></div>
         {% endif %}
       </div>
       <div class="product-feature__copy">
