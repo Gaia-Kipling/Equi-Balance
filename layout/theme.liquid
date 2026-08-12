@@ -18,36 +18,26 @@
     </title>
 
     <meta name="description" content="{{ page_description | escape }}">
-
     <meta property="og:site_name" content="{{ shop.name }}">
     <meta property="og:url" content="{{ canonical_url }}">
     <meta property="og:title" content="{{ page_title | escape }}">
     <meta property="og:type" content="website">
-
     {% if page_image %}
       <meta property="og:image" content="{{ page_image | image_url: width: 1200 }}">
       <meta property="og:image:width" content="1200">
     {% endif %}
-
     <meta name="twitter:card" content="summary_large_image">
 
     {{ content_for_header }}
-
     {{ 'equi-balance.css' | asset_url | stylesheet_tag }}
+    {{ 'equi-balance-responsive.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'equi-balance.js' | asset_url }}" defer></script>
   </head>
 
   <body class="template-{{ template.name | handle }}">
-    <a class="skip-link" href="#MainContent">
-      {{ 'general.accessibility.skip_to_content' | t }}
-    </a>
-
+    <a class="skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
     {% sections 'header-group' %}
-
-    <main id="MainContent" role="main" tabindex="-1">
-      {{ content_for_layout }}
-    </main>
-
+    <main id="MainContent" role="main" tabindex="-1">{{ content_for_layout }}</main>
     {% sections 'footer-group' %}
   </body>
 </html>
