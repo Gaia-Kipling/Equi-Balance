@@ -11,7 +11,7 @@
     </nav>
     <a class="header-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
       {% if section.settings.logo != blank %}
-        {{ section.settings.logo | image_url: width: 600 | image_tag: widths: '180,300,450,600', loading: 'eager', alt: shop.name, style: 'width:' | append: section.settings.logo_width | append: 'px;' }}
+        <img src="{{ section.settings.logo | image_url: width: 600 }}" alt="{{ shop.name | escape }}" width="600" height="600" loading="eager" style="width:{{ section.settings.logo_width }}px;">
       {% else %}
         <img src="{{ 'equi-balance-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="600" height="600" loading="eager" style="width:{{ section.settings.logo_width }}px;">
       {% endif %}
