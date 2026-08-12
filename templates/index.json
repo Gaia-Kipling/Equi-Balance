@@ -3,7 +3,9 @@
     "hero": { "type": "hero", "settings": {} },
     "intro": { "type": "intro", "settings": {} },
     "featured": { "type": "featured-product", "settings": {} },
-    "story": { "type": "story-split", "settings": {} }
+    "story": { "type": "story-split", "settings": {} },
+    "future": { "type": "future-range", "settings": {} },
+    "newsletter": { "type": "newsletter", "settings": {} }
   },
-  "order": ["hero", "intro", "featured", "story"]
+  "order": ["hero", "intro", "featured", "story", "future", "newsletter"]
 }
