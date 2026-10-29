@@ -7,7 +7,8 @@
     <title>{% if page_title %}{{ page_title }}{% else %}{{ shop.name }}{% endif %}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
     {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
     <meta property="og:site_name" content="{{ shop.name | escape }}"><meta property="og:url" content="{{ canonical_url }}"><meta property="og:title" content="{{ page_title | escape }}"><meta property="og:type" content="website">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":{{ shop.name | json }},"url":{{ shop.url | json }},"potentialAction":{"@type":"SearchAction","target":{{ shop.url | append: routes.search_url | append: '?q={search_term_string}' | json }},"query-input":"required name=search_term_string"}}</script>
+    {% assign search_term_placeholder = '{' | append: 'search_term_string' | append: '}' %}
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":{{ shop.name | json }},"url":{{ shop.url | json }},"potentialAction":{"@type":"SearchAction","target":{{ shop.url | append: routes.search_url | append: '?q=' | append: search_term_placeholder | json }},"query-input":"required name=search_term_string"}}</script>
     {{ content_for_header }}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
     {% style %}
