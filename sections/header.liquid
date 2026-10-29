@@ -1,7 +1,7 @@
 <header class="site-header" data-header>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="SiteNav"><span></span><span></span><span></span><span class="visually-hidden">{{ 'sections.header.menu' | t }}</span></button>
   <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }} home">
-    {% if settings.logo %}{{ settings.logo | image_url: width: 720 | image_tag: widths: '180, 360, 540, 720', width: settings.logo_width, alt: shop.name, class: 'brand-logo' }}{% else %}{{ 'equi-balance-logo.png' | asset_url | image_tag: width: 720, widths: '180, 360, 540, 720', width: settings.logo_width, alt: shop.name, class: 'brand-logo' }}{% endif %}
+    {% if settings.logo %}{{ settings.logo | image_url: width: 720 | image_tag: widths: '180, 360, 540, 720', alt: shop.name, class: 'brand-logo' }}{% else %}{% assign logo_height = settings.logo_width | times: 1012 | divided_by: 3240 %}{{ 'equi-balance-logo.png' | asset_url | image_tag: width: settings.logo_width, height: logo_height, alt: shop.name, class: 'brand-logo' }}{% endif %}
   </a>
   <nav id="SiteNav" class="site-nav" aria-label="Main navigation">
     {% assign menu = section.settings.menu %}{% if menu != blank %}{% for link in menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}<a href="{{ routes.root_url }}">Home</a><a href="{{ routes.all_products_collection_url }}">Shop</a><a href="/pages/our-story">Our Story</a><a href="/blogs/knowledge-hub">Knowledge Hub</a><a href="/pages/contact">Contact</a>{% endif %}
