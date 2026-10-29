@@ -9,9 +9,12 @@
     <meta property="og:site_name" content="{{ shop.name | escape }}"><meta property="og:url" content="{{ canonical_url }}"><meta property="og:title" content="{{ page_title | escape }}"><meta property="og:type" content="website">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":{{ shop.name | json }},"url":{{ shop.url | json }},"potentialAction":{"@type":"SearchAction","target":{{ shop.url | append: routes.search_url | append: '?q={search_term_string}' | json }},"query-input":"required name=search_term_string"}}</script>
     {{ content_for_header }}
-    {{ settings.heading_font | font_face: font_display: 'swap' }}{{ settings.body_font | font_face: font_display: 'swap' }}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
-    <style>:root{--forest:{{ settings.forest }};--sage:{{ settings.sage }};--gold:{{ settings.gold }};--cream:{{ settings.cream }};--ink:{{ settings.ink }};--serif:{{ settings.heading_font.family | default: 'Georgia' | json }},Georgia,serif;--sans:{{ settings.body_font.family | default: 'Arial' | json }},Arial,sans-serif;--logo-width:{{ settings.logo_width }}px}</style>
+    {% style %}
+      {{ settings.heading_font | font_face: font_display: 'swap' }}
+      {{ settings.body_font | font_face: font_display: 'swap' }}
+      :root{--forest:{{ settings.forest }};--sage:{{ settings.sage }};--gold:{{ settings.gold }};--cream:{{ settings.cream }};--ink:{{ settings.ink }};--serif:{{ settings.heading_font.family | default: 'Georgia' | json }},Georgia,serif;--sans:{{ settings.body_font.family | default: 'Arial' | json }},Arial,sans-serif;--logo-width:{{ settings.logo_width }}px}
+    {% endstyle %}
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </head>
   <body class="template-{{ template.name | handle }}">
