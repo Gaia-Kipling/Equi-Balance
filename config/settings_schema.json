@@ -1,0 +1,6 @@
+[
+  {"name":"theme_info","theme_name":"Equi Balance","theme_version":"1.0.0","theme_author":"Equi Balance","theme_documentation_url":"https://shopify.dev/docs/storefronts/themes","theme_support_url":"https://shopify.dev/docs/storefronts/themes"},
+  {"name":"Brand","settings":[{"type":"image_picker","id":"logo","label":"Logo"},{"type":"range","id":"logo_width","min":100,"max":360,"step":10,"unit":"px","label":"Logo width","default":220},{"type":"color","id":"forest","label":"Forest green","default":"#18352F"},{"type":"color","id":"sage","label":"Sage green","default":"#6D866F"},{"type":"color","id":"gold","label":"Antique gold","default":"#B7A477"},{"type":"color","id":"cream","label":"Warm ivory","default":"#F5F2E9"},{"type":"color","id":"ink","label":"Text charcoal","default":"#292D29"}]},
+  {"name":"Typography","settings":[{"type":"font_picker","id":"heading_font","label":"Heading font","default":"cormorant_garamond_n4"},{"type":"font_picker","id":"body_font","label":"Body font","default":"assistant_n4"}]},
+  {"name":"Social links","settings":[{"type":"url","id":"instagram","label":"Instagram"},{"type":"url","id":"facebook","label":"Facebook"}]}
+]
